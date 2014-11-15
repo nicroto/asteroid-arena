@@ -72,9 +72,25 @@ module.exports = function(grunt) {
 			}
 		},
 		watch: {
-			game: {
+			client: {
 				files: ['src/game/**/*', 'src/client/**/*'],
 				tasks: ['devRebuild']
+			},
+			server: {
+				files:  [ 'src/server/**/*', '!src/server/client/**/*' ],
+				tasks:  [ 'express:server' ],
+				options: {
+					spawn: false
+				}
+			}
+		},
+		express: {
+			options: {},
+			server: {
+				options: {
+					script: 'src/server/server.js',
+					port: 5000
+				}
 			}
 		}
 	});
@@ -87,6 +103,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-stylus');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-express-server');
 
 
 	// run lint and tests
@@ -94,7 +111,7 @@ module.exports = function(grunt) {
 
 	// start develop
 	grunt.registerTask('devRebuild', ['clean', 'browserify:game_debug', 'stylus', 'copy']);
-	grunt.registerTask('dev', ['devRebuild', 'watch:game']);
+	grunt.registerTask('dev', ['devRebuild', 'express', 'watch']);
 
 	// build for test & commit (output is minified)
 	grunt.registerTask('build', ['clean', 'browserify:game', 'stylus', 'copy']);
