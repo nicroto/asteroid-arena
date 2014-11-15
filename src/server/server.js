@@ -11,6 +11,6 @@ app.use( bodyParser.json() );
 
 app.use( express.static( pathUtils.resolve( __dirname, "client" ) ) );
 
-var server = http.createServer(app).listen(PORT, function() {
+http.createServer(app).listen(PORT, function() {
     console.log('Express server listening on port ' + PORT);
 });
