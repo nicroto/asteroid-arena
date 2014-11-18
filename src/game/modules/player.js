@@ -53,8 +53,7 @@ Player.prototype = {
 		var self = this,
 			game = self.game,
 			Phaser = self.Phaser,
-			sprite = self.sprite,
-			bullets = self.bullets;
+			sprite = self.sprite;
 
 		if ( cursors.up.isDown )
 		{

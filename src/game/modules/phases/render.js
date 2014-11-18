@@ -1,9 +1,9 @@
 'use strict';
 
-module.exports = function(state) {
+module.exports = function() {
 
 	return function() {
 		// Not Implemented
 	};
 
-}
+};

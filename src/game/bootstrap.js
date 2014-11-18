@@ -21,7 +21,7 @@ state.collisionHandler = collisionHandler;
 state.player = player;
 state.asteroidManager = asteroidManager;
 
-var game = state.game = new Phaser.Game(
+state.game = new Phaser.Game(
 	800,
 	600,
 	Phaser.CANVAS,

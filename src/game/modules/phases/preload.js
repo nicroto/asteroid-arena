@@ -13,4 +13,4 @@ module.exports = function(state) {
 		state.asteroidManager.preload( Phaser, game );
 	};
 
-}
+};

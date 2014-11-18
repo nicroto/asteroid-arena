@@ -37,7 +37,7 @@ AsteroidsManager.prototype = {
 		}
 	},
 
-	update: function(cursors) {
+	update: function() {
 		var self = this,
 			game = self.game,
 			asteroids = self.asteroids;
