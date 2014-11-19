@@ -1,6 +1,7 @@
 'use strict';
 
 var utils = require("./utils"),
+	CONST = require("./const"),
 	Asteroid = require("./asteroid");
 
 function AsteroidsManager() {
@@ -31,7 +32,7 @@ AsteroidsManager.prototype = {
 
 		//  asteroids
 		var asteroids = self.asteroids;
-		for ( var i = 0; i < 15; i++ ) {
+		for ( var i = 0; i < CONST.ASTEROIDS_COUNT; i++ ) {
 			var asteroid = new Asteroid( Phaser, game, i );
 			asteroids.push( asteroid );
 		}
