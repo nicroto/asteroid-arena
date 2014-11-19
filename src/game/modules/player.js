@@ -1,15 +1,22 @@
 'use strict';
 
 var utils = require("./utils"),
-	CONST = require("./const");
+	CONST = require("./const"),
+	HealthBar = require("./health-bar");
 
-function Player() {}
+function Player() {
+	var self = this,
+		healthBar = new HealthBar( CONST.PLAYER_HEALTH_MAX, CONST.PLAYER_HEALTHBAR_WIDTH );
+
+	self.healthBar = healthBar;
+}
 
 Player.prototype = {
 
 	Phaser: null,
 	game: null,
 
+	healthBar: null,
 	sprite: null,
 	shipSprite: null,
 	bullets: null,
@@ -25,6 +32,8 @@ Player.prototype = {
 
 		game.load.image( 'bullet', 'assets/bullets.png' );
 		game.load.image( 'ship', 'assets/ship.png' );
+
+		self.healthBar.preload( Phaser, game );
 	},
 
 	create: function() {
@@ -57,6 +66,9 @@ Player.prototype = {
 		self.bullets = bullets;
 		self.sprite = mainSprite;
 		self.shipSprite = shipSprite;
+
+		self.healthBar.create();
+		self.healthBar.update( 0 );
 	},
 
 	update: function(cursors) {
@@ -97,6 +109,12 @@ Player.prototype = {
 
 	render: function() {
 
+	},
+
+	receiveDamage: function(hitPoints) {
+		var self = this;
+
+		self.healthBar.update( hitPoints );
 	},
 
 	_fireBullet: function() {

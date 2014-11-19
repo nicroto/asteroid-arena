@@ -33,6 +33,7 @@ Asteroid.prototype = {
 	Phaser: null,
 	health: 3,
 	alive: true,
+	impactDamage: 1,
 
 	sprite: null,
 

@@ -24,23 +24,35 @@ CollisionHandler.prototype = {
 			self._asteroidCollideWithSprite( asteroids[ asteroidSprite.name ], bullet );
 		};
 		var playerAsteroidOverlapHandler = function(playerSprite, asteroidSprite) {
-			self._asteroidCollideWithSprite( asteroids[ asteroidSprite.name ], playerSprite );
+			self._asteroidCollideWithPlayer( asteroids[ asteroidSprite.name ], player );
 		};
 
 		for ( var i = 0; i < asteroids.length; i++ ) {
 			var asteroid = asteroids[ i ];
 			if ( asteroid.alive ) {
-				game.physics.arcade.overlap( bullets, asteroid.sprite, asteroidBulletOverlapHandler, null, this );
+				game.physics.arcade.overlap( bullets, asteroid.sprite, asteroidBulletOverlapHandler, null, self );
 				if ( asteroid.alive ) {
-					game.physics.arcade.overlap( playerSprite, asteroid.sprite, playerAsteroidOverlapHandler, null, this );
+					game.physics.arcade.overlap( playerSprite, asteroid.sprite, playerAsteroidOverlapHandler, null, self );
 				}
 			}
 		}
 	},
 
 	_asteroidCollideWithSprite: function(asteroid, sprite) {
-		sprite.kill();
+		var self = this;
 
+		sprite.kill();
+		self._damageAsteroid( asteroid );
+	},
+
+	_asteroidCollideWithPlayer: function(asteroid, player) {
+		var self = this;
+
+		player.receiveDamage( asteroid.impactDamage );
+		self._damageAsteroid( asteroid );
+	},
+
+	_damageAsteroid: function(asteroid) {
 		var destroyed = asteroid.damage();
 
 		if ( destroyed )
